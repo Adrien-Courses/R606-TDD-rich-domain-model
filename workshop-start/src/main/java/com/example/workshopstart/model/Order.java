@@ -27,7 +27,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    private BigDecimal total;
+    private BigDecimal total = BigDecimal.ZERO;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<OrderItem> items = new ArrayList<>();
@@ -35,9 +35,8 @@ public class Order {
     public Order() {
     }
 
-    public Order(Customer customer, BigDecimal total) {
+    public Order(Customer customer) {
         this.status = OrderStatus.CREATED;
-        this.total = total;
         this.customer = customer;
     }
 
@@ -104,8 +103,23 @@ public class Order {
         this.status = OrderStatus.SHIPPED;
     }
 
-    public void addItem(String book, BigDecimal bigDecimal, int i) {
-        items.add(new OrderItem(book, bigDecimal, i));
+    public void addItem(String productId, BigDecimal price, int quantity) {
+        if(status != OrderStatus.CREATED) {
+            throw new IllegalStateException("Cannot add items to an order that has already been confirmed");
+        }
+
+        OrderItem existingItem = items.stream()
+                .filter(item -> item.getProductId().equals(productId))
+                .findFirst()
+                .orElse(null);
+
+        if (existingItem != null) {
+            existingItem.increaseQuantity(quantity);
+        } else {
+            items.add(new OrderItem(productId, price, quantity));
+        }
+
+        total = subtotal();
     }
 
     public void cancel() {

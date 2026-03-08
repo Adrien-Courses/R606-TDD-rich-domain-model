@@ -145,3 +145,8 @@ public void confirm() {
 Attention à la loi de Demeter sur l'adresse de livraison.
 
 ## TDD sur la le prix de la commande
+
+## TDD ajouter un article
+On le fait à la fin car un peu plus compliqué, il va également être necessaore de refactor notre code.
+En effet, juste apr!s avoir supprimé "total" du constructeur de Order on a des tests qui échoue car addLine() n'est pas encore codé correctement
+MAis ce n'est pas grave, car grace a nos test on va s'assurer d'aucune regression.
