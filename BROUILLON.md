@@ -140,3 +140,6 @@ public void confirm() {
     this.status = OrderStatus.CONFIRMED;
 }
 ```
+
+## TDD sur la livraison et le prix de la commande
+Attention à la loi de Demeter sur l'adresse de livraison.

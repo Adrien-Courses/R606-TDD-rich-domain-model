@@ -35,9 +35,10 @@ public class Order {
     public Order() {
     }
 
-    public Order(BigDecimal total) {
+    public Order(Customer customer, BigDecimal total) {
         this.status = OrderStatus.CREATED;
         this.total = total;
+        this.customer = customer;
     }
 
     public Long getId() {
@@ -113,5 +114,14 @@ public class Order {
         }
 
         this.status = OrderStatus.CANCELLED;
+    }
+
+    public BigDecimal shippingCost() {
+        // On crée un méthode isInternationnal pour ne pas casser la Loi de Demeter
+        if(!customer.isVip() && customer.isInternationnal()) {
+            return new BigDecimal("5.00");
+        }
+
+        return new BigDecimal("0.00");
     }
 }
