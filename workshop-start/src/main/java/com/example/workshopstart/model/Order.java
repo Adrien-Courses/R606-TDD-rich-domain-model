@@ -94,4 +94,24 @@ public class Order {
 
         this.status = OrderStatus.CONFIRMED;
     }
+
+    public void ship() {
+        if(status != OrderStatus.CONFIRMED) {
+            throw new IllegalStateException("Only confirmed orders can be shipped");
+        }
+
+        this.status = OrderStatus.SHIPPED;
+    }
+
+    public void addItem(String book, BigDecimal bigDecimal, int i) {
+        items.add(new OrderItem(book, bigDecimal, i));
+    }
+
+    public void cancel() {
+        if (status == OrderStatus.SHIPPED) {
+            throw new IllegalStateException("Cannot cancel an order that has already been shipped");
+        }
+
+        this.status = OrderStatus.CANCELLED;
+    }
 }
