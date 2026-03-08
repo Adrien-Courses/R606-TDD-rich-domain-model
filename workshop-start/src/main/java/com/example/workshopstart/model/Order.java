@@ -35,6 +35,11 @@ public class Order {
     public Order() {
     }
 
+    public Order(BigDecimal total) {
+        this.status = OrderStatus.CREATED;
+        this.total = total;
+    }
+
     public Long getId() {
         return id;
     }
@@ -72,5 +77,21 @@ public class Order {
     }
 
     public void setId(long l) {
+    }
+
+    public void confirm() {
+        if(status != OrderStatus.CREATED) {
+            throw new IllegalStateException("Order already confirmed");
+        }
+
+        if(this.total.compareTo(new BigDecimal("10.00")) < 0) {
+            throw new IllegalStateException("Minimum order amount is 10.00");
+        }
+
+        if(this.items.isEmpty()) {
+            throw new IllegalStateException("Order must contain at least one item");
+        }
+
+        this.status = OrderStatus.CONFIRMED;
     }
 }
