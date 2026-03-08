@@ -143,3 +143,5 @@ public void confirm() {
 
 ## TDD sur la livraison et le prix de la commande
 Attention à la loi de Demeter sur l'adresse de livraison.
+
+## TDD sur la le prix de la commande

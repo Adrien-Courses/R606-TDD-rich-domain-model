@@ -124,4 +124,8 @@ public class Order {
 
         return new BigDecimal("0.00");
     }
+
+    public BigDecimal subtotal() {
+        return items.stream().map(OrderItem::getSubtotal).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
 }

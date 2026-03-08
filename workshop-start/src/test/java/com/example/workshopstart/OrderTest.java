@@ -111,4 +111,25 @@ public class OrderTest {
 
         Assertions.assertEquals(new BigDecimal("5.00"), actuel);
     }
+
+    @Test
+    void should_return_total_price_of_order() {
+        Order order = createOrder(new BigDecimal("20.00"));
+        order.addItem("BOOK", new BigDecimal("20.00"), 1);
+
+        BigDecimal actual = order.subtotal();
+
+        Assertions.assertEquals(new BigDecimal("20.00"), actual);
+    }
+
+    @Test
+    void should_return_total_price_of_order_with_multiple_items() {
+        Order order = createOrder(new BigDecimal("20.00"));
+        order.addItem("BOOK", new BigDecimal("20.00"), 1);
+        order.addItem("BOOK2", new BigDecimal("30.00"), 2);
+
+        BigDecimal actual = order.subtotal();
+
+        Assertions.assertEquals(new BigDecimal("80.00"), actual);
+    }
 }
