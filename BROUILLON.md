@@ -150,3 +150,8 @@ Attention à la loi de Demeter sur l'adresse de livraison.
 On le fait à la fin car un peu plus compliqué, il va également être necessaore de refactor notre code.
 En effet, juste apr!s avoir supprimé "total" du constructeur de Order on a des tests qui échoue car addLine() n'est pas encore codé correctement
 MAis ce n'est pas grave, car grace a nos test on va s'assurer d'aucune regression.
+
+# Refactoring du Service
+Le logique métier ayant été déplacée dans le Domain Model, elle doit être retiré de la couche Service.
+
+Les tests présents dans `WorkshopStartRedTests` étaient des tests métiers, ils n'ont plus lieu d'exister ici.
